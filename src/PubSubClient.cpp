@@ -674,7 +674,6 @@ uint16_t PubSubClient::writeString(const char * string, uint8_t * buf, uint16_t 
   return pos;
 }
 
-#if 0
 boolean PubSubClient::check_and_write(uint16_t * length, const char * string) 
 {
   if ((*length + 2 + strlen(string)) > MQTT_MAX_PACKET_SIZE) {
@@ -684,7 +683,6 @@ boolean PubSubClient::check_and_write(uint16_t * length, const char * string)
   *length = writeString(string, buffer, *length);
   return true;
 }
-#endif
 
 boolean PubSubClient::connected() 
 {
