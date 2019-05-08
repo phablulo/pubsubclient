@@ -7,7 +7,7 @@
 #include "PubSubClient.h"
 #include "Arduino.h"
 
-PubSubClient::PubSubClient(),
+PubSubClient::PubSubClient():
 _state(MQTT_DISCONNECTED),
 _client(NULL),
 _stream(NULL),
@@ -15,7 +15,7 @@ _callback(NULL)
 {
 }
 
-PubSubClient::PubSubClient(Client & client),
+PubSubClient::PubSubClient(Client & client):
 _state(MQTT_DISCONNECTED),
 _client(&client),
 _stream(NULL),
@@ -25,7 +25,7 @@ _callback(NULL)
 
 PubSubClient::PubSubClient(IPAddress addr, 
                            uint16_t  port, 
-                           Client  & client),
+                           Client  & client):
 _state(MQTT_DISCONNECTED),
 _client(&client),
 _stream(NULL),
@@ -37,7 +37,7 @@ _callback(NULL)
 PubSubClient::PubSubClient(IPAddress addr, 
                            uint16_t  port, 
                            Client  & client, 
-                           Stream  & stream),
+                           Stream  & stream):
 _state(MQTT_DISCONNECTED),
 _client(&client),
 _stream(&stream),
@@ -49,7 +49,7 @@ _callback(NULL)
 PubSubClient::PubSubClient(IPAddress addr, 
                            uint16_t  port, 
                            MQTT_CALLBACK_SIGNATURE(callback), 
-                           Client  & client),
+                           Client  & client):
 _state(MQTT_DISCONNECTED),
 _client(&client),
 _stream(NULL),
@@ -62,7 +62,7 @@ PubSubClient::PubSubClient(IPAddress addr,
                            uint16_t  port, 
                            MQTT_CALLBACK_SIGNATURE(callback), 
                            Client & client, 
-                           Stream & stream),
+                           Stream & stream):
 _state(MQTT_DISCONNECTED),
 _client(&client),
 _stream(&stream),
@@ -73,7 +73,7 @@ _callback(callback)
 
 PubSubClient::PubSubClient(uint8_t * ip, 
                            uint16_t  port, 
-                           Client  & client),
+                           Client  & client):
 _state(MQTT_DISCONNECTED),
 _client(&client),
 _stream(NULL),
@@ -85,7 +85,7 @@ _callback(NULL)
 PubSubClient::PubSubClient(uint8_t * ip, 
                            uint16_t  port, 
                            Client  & client, 
-                           Stream  & stream),
+                           Stream  & stream):
 _state(MQTT_DISCONNECTED),
 _client(&client),
 _stream(&stream),
@@ -97,7 +97,7 @@ _callback(NULL)
 PubSubClient::PubSubClient(uint8_t * ip, 
                            uint16_t  port, 
                            MQTT_CALLBACK_SIGNATURE(callback), 
-                           Client  & client),
+                           Client  & client):
 _state(MQTT_DISCONNECTED),
 _client(&client),
 _stream(NULL),
@@ -110,7 +110,7 @@ PubSubClient::PubSubClient(uint8_t * ip,
                            uint16_t  port, 
                            MQTT_CALLBACK_SIGNATURE(callback), 
                            Client  & client, 
-                           Stream  & stream),
+                           Stream  & stream):
 _state(MQTT_DISCONNECTED),
 _client(&client),
 _stream(&stream),
@@ -121,7 +121,7 @@ _callback(callback)
 
 PubSubClient::PubSubClient(const char * domain, 
                            uint16_t     port, 
-                           Client     & client),
+                           Client     & client):
 _state(MQTT_DISCONNECTED),
 _client(&client),
 _stream(NULL),
@@ -133,7 +133,7 @@ _callback(NULL)
 PubSubClient::PubSubClient(const char * domain, 
                            uint16_t     port, 
                            Client     & client, 
-                           Stream     & stream),
+                           Stream     & stream):
 _state(MQTT_DISCONNECTED),
 _client(&client),
 _stream(&stream),
@@ -145,7 +145,7 @@ _callback(NULL)
 PubSubClient::PubSubClient(const char * domain, 
                            uint16_t     port, 
                            MQTT_CALLBACK_SIGNATURE(callback), 
-                           Client     & client),
+                           Client     & client):
 _state(MQTT_DISCONNECTED),
 _client(&client),
 _stream(NULL),
@@ -158,7 +158,7 @@ PubSubClient::PubSubClient(const char * domain,
                            uint16_t     port, 
                            MQTT_CALLBACK_SIGNATURE(callback), 
                            Client     & client, 
-                           Stream     & stream),
+                           Stream     & stream):
 _state(MQTT_DISCONNECTED),
 _client(&client),
 _stream(&stream),
