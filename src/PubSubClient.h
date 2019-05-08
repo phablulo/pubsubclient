@@ -146,12 +146,12 @@ public:
   PubSubClient & setStream(Stream & stream);
 
   boolean connect(const char * id, 
-                  const char * user         = NULL, 
-                  const char * pass         = NULL, 
-                  const char * willTopic    = NULL, 
+                  const char * user         = nullptr, 
+                  const char * pass         = nullptr, 
+                  const char * willTopic    = nullptr, 
                   uint8_t      willQos      = 0, 
                   boolean      willRetain   = false, 
-                  const char * willMessage  = NULL, 
+                  const char * willMessage  = nullptr, 
                   boolean      cleanSession = true);
   
   inline boolean connect(const char * id, 
@@ -160,18 +160,22 @@ public:
                          boolean      willRetain, 
                          const char * willMessage) 
   {
-    return connect(id, NULL, NULL, willTopic, willQos, willRetain, willMessage, true);
+    return connect(id, nullptr, nullptr, willTopic, willQos, willRetain, willMessage, true);
   }
 
   void disconnect();
 
-  boolean publish(const char * topic, const char    * payload);
-  boolean publish(const char * topic, const char    * payload, boolean retained);
-  boolean publish(const char * topic, const uint8_t * payload, unsigned int plength);
-  boolean publish(const char * topic, const uint8_t * payload, unsigned int plength, boolean retained);
+  boolean publish(const char * topic, const uint8_t * payload, unsigned int plength, boolean retained = false);
+  inline boolean publish(const char * topic, const char * payload, boolean retained = false)
+  {
+    return publish(topic, (const uint8_t *) payload, strlen(payload), retained);
+  }
 
-  boolean publish_P(const char * topic, const char    * payload, boolean retained);
   boolean publish_P(const char * topic, const uint8_t * payload, unsigned int plength, boolean retained);
+  inline boolean publish_P(const char * topic, const char * payload, boolean retained)
+  {
+    return publish_P(topic, (const uint8_t *) payload, strlen(payload), retained);
+  }
 
   // Start to publish a message.
   // This API:
@@ -184,8 +188,8 @@ public:
   boolean beginPublish(const char* topic, unsigned int plength, boolean retained);
 
   // Finish off this publish message (started with beginPublish)
-  // Returns 1 if the packet was sent successfully, 0 if there was an error
-  int endPublish();
+  // Returns true if the packet was sent successfully, false if there was an error
+  boolean endPublish();
 
   // Write a single byte of payload (only to be used with beginPublish/endPublish)
   virtual size_t write(uint8_t);
