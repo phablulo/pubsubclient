@@ -231,14 +231,14 @@ boolean PubSubClient::connect(const char * id,
     if (!check_and_write(&length, id)) return false;
  
     if (willTopic != nullptr) {
-      if (!check_and_write(length, willTopic  )) return false;
-      if (!check_and_write(length, willMessage)) return false;
+      if (!check_and_write(&length, willTopic  )) return false;
+      if (!check_and_write(&length, willMessage)) return false;
     }
 
     if (user != nullptr) {
-      if (!check_and_write(length, user)) return false;
+      if (!check_and_write(&length, user)) return false;
       if (pass != nullptr) {
-        if (!check_and_write(length, pass)) return false;
+        if (!check_and_write(&length, pass)) return false;
       }
     }
 
