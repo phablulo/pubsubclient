@@ -530,7 +530,7 @@ boolean PubSubClient::publish_P(const char    * topic,
 
   rc += _client->write(buffer, pos);
 
-  for (int i = 0; i < plength; i++) {
+  for (unsigned int i = 0; i < plength; i++) {
     rc += _client->write((char) pgm_read_byte_near(payload + i));
   }
 
