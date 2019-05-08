@@ -349,7 +349,7 @@ uint32_t PubSubClient::readPacket(uint8_t * lengthLength)
   for (uint32_t i = start; i < length; i++) {
     if (!readByte(&digit)) return 0;
     if (this->stream) {
-      if (isPublish && ((idx - *lengthLength - 2) > skip) {
+      if (isPublish && ((idx - *lengthLength - 2) > skip)) {
         this->stream->write(digit);
       }
     }
