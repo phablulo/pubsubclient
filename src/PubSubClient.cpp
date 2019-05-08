@@ -545,7 +545,6 @@ boolean PubSubClient::beginPublish(const char* topic, unsigned int plength, bool
 
   // Send the header and variable length field
   uint16_t length = writeString(topic, buffer, MQTT_MAX_HEADER_SIZE);
-  uint16_t i;
   uint8_t  header = MQTTPUBLISH;
 
   if (retained) header |= 1;
