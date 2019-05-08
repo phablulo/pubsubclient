@@ -178,7 +178,16 @@ boolean PubSubClient::connect(const char * id,
 {
   if (connected()) return true;
 
-  if (_client->connect(_domain == nullptr ? _ip : _domain, _port)) {
+  boolean result;
+
+  if (_domain == nullptr) {
+    result = _client->connect(_ip, _port);
+  }
+  else {
+    result = _client->connect(_domain, _port)
+  }
+
+  if (result) {
     nextMsgId = 1;
     // Leave room in the buffer for header and variable length field
     uint16_t length = MQTT_MAX_HEADER_SIZE;
