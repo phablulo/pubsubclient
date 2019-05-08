@@ -83,12 +83,6 @@
   #define MQTT_CALLBACK_SIGNATURE(c) void (*c)(char *, uint8_t *, unsigned int)
 #endif
 
-#define CHECK_STRING_LENGTH(l, s) \
-  if ((l + 2 + strlen(s)) > MQTT_MAX_PACKET_SIZE) { \
-     _client->stop(); \
-     return false;    \
-  }
-
 class PubSubClient : public Print {
 private:
   int           _state;
@@ -106,11 +100,12 @@ private:
   unsigned long lastInActivity;
   bool          pingOutstanding;
 
-  uint32_t  readPacket(uint8_t    * );
-  boolean     readByte(uint8_t    * result);
-  boolean     readByte(uint8_t    * result, uint16_t * index);
-  boolean        write(uint8_t      header, uint8_t  * buf, uint16_t length);
-  uint16_t writeString(const char * string, uint8_t  * buf, uint16_t pos);
+  uint32_t     readPacket(uint8_t    * lengthLength);
+  boolean        readByte(uint8_t    * result);
+  boolean        readByte(uint8_t    * result, uint16_t   * index);
+  boolean           write(uint8_t      header, uint8_t    * buf, uint16_t length);
+  uint16_t    writeString(const char * string, uint8_t    * buf, uint16_t pos);
+  boolean check_and_write(uint16_t   * length, const char * string);
 
   // Build up the header ready to send
   // Returns the size of the header

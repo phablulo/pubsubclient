@@ -228,22 +228,17 @@ boolean PubSubClient::connect(const char * id,
     buffer[length++] = (MQTT_KEEPALIVE) >> 8;
     buffer[length++] = (MQTT_KEEPALIVE) & 0xFF;
 
-    CHECK_STRING_LENGTH(length, id)
-    length = writeString(id, buffer, length);
+    if (!check_and_write(&length, id)) return false;
  
     if (willTopic != nullptr) {
-      CHECK_STRING_LENGTH(length, willTopic)
-      length = writeString(willTopic, buffer, length);
-      CHECK_STRING_LENGTH(length, willMessage)
-      length = writeString(willMessage, buffer, length);
+      if (!check_and_write(length, willTopic  )) return false;
+      if (!check_and_write(length, willMessage)) return false;
     }
 
     if (user != nullptr) {
-      CHECK_STRING_LENGTH(length, user)
-      length = writeString(user, buffer, length);
+      if (!check_and_write(length, user)) return false;
       if (pass != nullptr) {
-        CHECK_STRING_LENGTH(length, pass)
-        length = writeString(pass, buffer, length);
+        if (!check_and_write(length, pass)) return false;
       }
     }
 
@@ -679,6 +674,15 @@ uint16_t PubSubClient::writeString(const char * string, uint8_t * buf, uint16_t 
   return pos;
 }
 
+boolean PubSubClient::check_and_write(uint16_t *length, const char * string) 
+{
+  if ((*length + 2 + strlen(string)) > MQTT_MAX_PACKET_SIZE) {
+    _client->stop();
+    return false;
+  }
+  *length = writeString(string, buffer, *length);
+  return true;
+}
 
 boolean PubSubClient::connected() 
 {
