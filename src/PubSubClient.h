@@ -105,7 +105,17 @@ private:
   boolean        readByte(uint8_t    * result, uint16_t   * index);
   boolean           write(uint8_t      header, uint8_t    * buf, uint16_t length);
   uint16_t    writeString(const char * string, uint8_t    * buf, uint16_t pos);
-  boolean check_and_write(uint16_t   * length, const char * string);
+  //boolean check_and_write(uint16_t   * length, const char * string);
+
+  inline boolean check_and_write(uint16_t * length, const char * string) 
+  {
+    if ((*length + 2 + strlen(string)) > MQTT_MAX_PACKET_SIZE) {
+      _client->stop();
+      return false;
+    }
+    *length = writeString(string, buffer, *length);
+    return true;
+  }
 
   // Build up the header ready to send
   // Returns the size of the header
