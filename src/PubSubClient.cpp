@@ -184,7 +184,7 @@ boolean PubSubClient::connect(const char * id,
     result = _client->connect(_ip, _port);
   }
   else {
-    result = _client->connect(_domain, _port)
+    result = _client->connect(_domain, _port);
   }
 
   if (result) {
