@@ -747,6 +747,9 @@ PubSubClient & PubSubClient::setStream(Stream & stream)
 
   return *this;
 }
+void PubSubClient::removeStream() {
+  _stream = nullptr;
+}
 
 int PubSubClient::state() 
 {

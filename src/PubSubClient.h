@@ -138,6 +138,7 @@ public:
   PubSubClient & setClient(Client & client);
    
   PubSubClient & setStream(Stream & stream);
+  void removeStream();
 
   boolean connect(const char * id, 
                   const char * user         = nullptr, 
